@@ -1,7 +1,13 @@
 # 该仓库基于 Lean 的 LEDE 源码修改
 原仓库：https://github.com/coolsnowwolf/lede
+修改内容：
+1.修改两处可能会导致编译错误的代码
+tools/quilt/Makefile : $(MAKE) -C $(HOST_BUILD_DIR) SHELL="$(BASH)" all → $(MAKE) -C $(HOST_BUILD_DIR) SHELL="$(BASH)" po/quilt.pot all
+feeds.conf.default : src-git telephony https://git.openwrt.org/feed/telephony.git → src-git telephony git://git.openwrt.org/feed/telephony.git
+2.取消注释HelloWrold，可以直接编译ShadowSocksR Plus+
 
-## Lean源仓库讨论群
+
+## Lean 仓库讨论群
 如有技术问题需要讨论或者交流，欢迎加入以下群：
 1. QQ 讨论群： Op固件技术研究群 ,号码 891659613 ，加群链接：[点击加入](https://jq.qq.com/?_wv=1027&k=XL8SK5aC "Op固件技术研究群")
 2. TG 讨论群： OP 编译官方大群 ，加群链接：[点击加入](https://t.me/JhKgAA6Hx1 "OP 编译官方大群")

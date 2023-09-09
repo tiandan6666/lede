@@ -1,8 +1,7 @@
-# 欢迎来到 Lean 的 LEDE 源码仓库
+# 该仓库基于 Lean 的 LEDE 源码修改
+原仓库：https://github.com/coolsnowwolf/lede
 
-I18N: [English](README_EN.md) | [简体中文](README.md)
-
-## 官方讨论群
+## 原Lean仓库讨论群
 如有技术问题需要讨论或者交流，欢迎加入以下群：
 1. QQ 讨论群： Op固件技术研究群 ,号码 891659613 ，加群链接：[点击加入](https://jq.qq.com/?_wv=1027&k=XL8SK5aC "Op固件技术研究群")
 2. TG 讨论群： OP 编译官方大群 ，加群链接：[点击加入](https://t.me/JhKgAA6Hx1 "OP 编译官方大群")
@@ -19,68 +18,6 @@ I18N: [English](README_EN.md) | [简体中文](README.md)
 1. **不要用 root 用户进行编译**
 2. 国内用户编译前最好准备好梯子
 3. 默认登陆IP 192.168.1.1 密码 password
-
-## 编译命令
-
-1. 首先装好 Linux 系统，推荐 Debian 11 或 Ubuntu LTS
-
-2. 安装编译依赖
-
-   ```bash
-   sudo apt update -y
-   sudo apt full-upgrade -y
-   sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
-   bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
-   git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev \
-   libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz \
-   mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \
-   libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip \
-   vim wget xmlto xxd zlib1g-dev python3-setuptools
-   ```
-
-3. 下载源代码，更新 feeds 并选择配置
-
-   ```bash
-   git clone https://github.com/coolsnowwolf/lede
-   cd lede
-   ./scripts/feeds update -a
-   ./scripts/feeds install -a
-   make menuconfig
-   ```
-
-4. 下载 dl 库，编译固件
-（-j 后面是线程数，第一次编译推荐用单线程）
-
-   ```bash
-   make download -j8
-   make V=s -j1
-   ```
-
-本套代码保证肯定可以编译成功。里面包括了 R23 所有源代码，包括 IPK 的。
-
-你可以自由使用，但源码编译二次发布请注明我的 GitHub 仓库链接。谢谢合作！
-
-二次编译：
-
-```bash
-cd lede
-git pull
-./scripts/feeds update -a
-./scripts/feeds install -a
-make defconfig
-make download -j8
-make V=s -j$(nproc)
-```
-
-如果需要重新配置：
-
-```bash
-rm -rf ./tmp && rm -rf .config
-make menuconfig
-make V=s -j$(nproc)
-```
-
-编译完成后输出路径：bin/targets
 
 ### 如果你使用 WSL/WSL2 进行编译
 
@@ -106,6 +43,87 @@ PS > git clone git@github.com:coolsnowwolf/lede.git <your_local_lede_path>
 ```
 
 > 对已经 `git clone` 完成的项目目录执行 `fsutil.exe` 命令无法生效，大小写敏感只对新增的文件变更有效。
+
+## 编译命令
+
+1. 首先装好 Linux 系统，推荐 Debian 11 或 Ubuntu LTS ，**若使用WSL请设置大小写敏感再Clone**
+
+2. 安装编译依赖
+
+   ```bash
+   sudo apt update -y
+   sudo apt full-upgrade -y
+   sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+   bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
+   git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev \
+   libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz \
+   mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \
+   libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip \
+   vim wget xmlto xxd zlib1g-dev python3-setuptools
+   ```
+
+3. 下载源代码，更新 feeds 并选择配置
+
+   ```bash
+   git clone https://github.com/tiandan6666/lede
+   cd lede
+   ./scripts/feeds update -a
+   ./scripts/feeds install -a
+   make menuconfig
+   ```
+
+4. 下载 dl 库，编译固件
+
+   ```bash
+   make download -j8
+   make V=s -j$(nproc)
+   ```
+
+   make V=s -j$(nproc) 的 -j$(nproc) 为自动使用设备最大线程编译
+   如果编译出现问题可尝试使用 make V=s -j1 进行单线程编译
+
+本套代码在**正常情况**保证肯定可以编译成功。里面包括了 R23 所有源代码，包括 IPK 的。
+
+你可以自由使用，但源码编译二次发布请注明 Lean 的 GitHub 仓库链接 https://github.com/coolsnowwolf/lede 。谢谢合作！
+
+二次编译：
+
+```bash
+cd lede
+git pull
+./scripts/feeds update -a
+./scripts/feeds install -a
+make defconfig
+make download -j8
+make V=s -j$(nproc)
+```
+
+如果需要对配置进行**调整**：
+
+```bash
+cd lede
+git pull
+./scripts/feeds update -a
+./scripts/feeds install -a
+make menuconfig
+make download -j8
+make V=s -j$(nproc)
+```
+
+如果需要重新**从零**配置：
+
+```bash
+cd lede
+git pull
+./scripts/feeds update -a
+./scripts/feeds install -a
+rm -rf ./tmp && rm -rf .config
+make menuconfig
+make download -j8
+make V=s -j$(nproc)
+```
+
+编译完成后输出路径：bin/targets
 
 ### macOS 原生系统进行编译
 
@@ -162,6 +180,6 @@ PS > git clone git@github.com:coolsnowwolf/lede.git <your_local_lede_path>
 
 ## 捐贈
 
-如果你觉得此项目对你有帮助，可以捐助我们，以鼓励项目能持续发展，更加完善
+如果你觉得 Lean 项目对你有帮助，可以捐助 Lean ，以鼓励项目能持续发展，更加完善
 
  ![star](doc/star.png)

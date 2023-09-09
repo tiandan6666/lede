@@ -42,7 +42,7 @@ PS > fsutil.exe file setCaseSensitiveInfo <your_local_lede_path> enable
 PS > git clone git@github.com:coolsnowwolf/lede.git <your_local_lede_path>
 ```
 
-> 对已经 `git clone` 完成的项目目录执行 `fsutil.exe` 命令无法生效，大小写敏感只对新增的文件变更有效。
+> **对已经 `git clone` 完成的项目目录执行 `fsutil.exe` 命令无法生效，大小写敏感只对新增的文件变更有效。**
 
 ## 编译命令
 

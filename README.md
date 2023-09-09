@@ -1,3 +1,4 @@
+# **该分支是对闭源项目 https://github.com/bleach1991/lede/ 的复现尝试**
 # 该仓库基于 Lean 的 LEDE 源码修改
 原仓库：https://github.com/coolsnowwolf/lede
 修改内容：

@@ -4,6 +4,7 @@ src-git routing https://github.com/coolsnowwolf/routing
 src-git telephony git://git.openwrt.org/feed/telephony.git
 src-git helloworld https://github.com/fw876/helloworld.git
 src-git openclash https://github.com/vernesong/OpenClash.git
+src-git istore https://github.com/linkease/istore.git
 #src-git oui https://github.com/zhaojh329/oui.git
 #src-git video https://github.com/openwrt/video.git
 #src-git targets https://github.com/openwrt/targets.git
